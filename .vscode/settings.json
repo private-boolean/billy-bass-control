@@ -1,0 +1,5 @@
+{
+    "sshUser": "developer",
+    "sshEndpoint": "nobby",
+    "remoteDir": "python-prj/billy-bass"
+}
