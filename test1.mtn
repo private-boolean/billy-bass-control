@@ -1,0 +1,84 @@
+{
+    "events": [
+        {
+            "time": 0.9020657539367676, 
+            "channel-name": "mouth", 
+            "event-name": "motor-on"
+        }, 
+        {
+            "time": 1.2868285179138184, 
+            "channel-name": "mouth", 
+            "event-name": "motor-off"
+        }, 
+        {
+            "time": 1.6060583591461182, 
+            "channel-name": "mouth", 
+            "event-name": "motor-on"
+        }, 
+        {
+            "time": 1.6449182033538818, 
+            "channel-name": "mouth", 
+            "event-name": "motor-off"
+        }, 
+        {
+            "time": 1.768331527709961, 
+            "channel-name": "mouth", 
+            "event-name": "motor-on"
+        }, 
+        {
+            "time": 1.8111591339111328, 
+            "channel-name": "mouth", 
+            "event-name": "motor-off"
+        }, 
+        {
+            "time": 1.9191334247589111, 
+            "channel-name": "mouth", 
+            "event-name": "motor-on"
+        }, 
+        {
+            "time": 2.370750665664673, 
+            "channel-name": "mouth", 
+            "event-name": "motor-off"
+        }, 
+        {
+            "time": 3.2872579097747803, 
+            "channel-name": "mouth", 
+            "event-name": "motor-on"
+        }, 
+        {
+            "time": 3.335580587387085, 
+            "channel-name": "mouth", 
+            "event-name": "motor-off"
+        }, 
+        {
+            "time": 3.4898123741149902, 
+            "channel-name": "mouth", 
+            "event-name": "motor-on"
+        }, 
+        {
+            "time": 3.5229368209838867, 
+            "channel-name": "mouth", 
+            "event-name": "motor-off"
+        }, 
+        {
+            "time": 3.758988857269287, 
+            "channel-name": "mouth", 
+            "event-name": "motor-on"
+        }, 
+        {
+            "time": 4.1505513191223145, 
+            "channel-name": "mouth", 
+            "event-name": "motor-off"
+        }, 
+        {
+            "time": 4.371015787124634, 
+            "channel-name": "mouth", 
+            "event-name": "motor-on"
+        }, 
+        {
+            "time": 4.9636712074279785, 
+            "channel-name": "mouth", 
+            "event-name": "motor-off"
+        }
+    ]
+}
