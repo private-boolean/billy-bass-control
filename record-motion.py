@@ -5,6 +5,8 @@ import queue
 import threading
 import json
 import glob
+from playsound import playsound
+import os
 
 BEAT_CHAR = ' '  # space to record a motion
 END_CHAR = 'q'  # 'q' to end
@@ -28,13 +30,15 @@ CHANNEL_HELP = ("name of the channel you'd like to record")
 OUTFILE_HELP = ("name of file to output to. The " +
                 EXTENSION + " will not be added automatically.")
 
+SOUNDFILE_HELP = ("name of the sound file to play while you record motion.")
+
 beatEvents = queue.Queue()
 
 didPress: bool = False
 keepGoing: bool = False
 
 
-def writeFile(filename, channelName):
+def writeFile(filename, channelName, soundFile):
     global beatEvents
 
     keepWriting = True
@@ -51,6 +55,9 @@ def writeFile(filename, channelName):
         if event.name == START_CHAR:
             startTime = event.time
             print('-- start time: %f' % (startTime))
+            
+            if os.path.exists(soundFile):
+                playsound(soundFile, block=False)
 
         if event.name == 'space':
             delta = event.time - startTime
@@ -116,7 +123,7 @@ def endBeatCallback(kb_event: keyboard.KeyboardEvent):
         didPress = False
 
 
-def captureMotion(verbose: bool, channelName: str, out_file: str):
+def captureMotion(verbose: bool, channelName: str, out_file: str, sound_file: str):
     if verbose:
         print("capturing input to channel name %s. Storing in file %s." %
               (channel, out_file))
@@ -128,7 +135,7 @@ def captureMotion(verbose: bool, channelName: str, out_file: str):
     keyboard.on_release_key(BEAT_CHAR, endBeatCallback, suppress=True)
     keyboard.on_release_key(END_CHAR, endRecordingCallback)
 
-    t = threading.Thread(target=writeFile, args=[out_file, channelName])
+    t = threading.Thread(target=writeFile, args=[out_file, channelName, sound_file])
     t.start()
 
     # keyboard.wait()
@@ -153,7 +160,7 @@ def mergeFiles(verbose: bool, out_file: str):
         i = 0
         j = 0
         while i < len(motionFileJson["events"]) or j < len(aggregatedMotion):
-            if i < len(motionFileJson["events"]) and j < len(aggregatedMotion): 
+            if i < len(motionFileJson["events"]) and j < len(aggregatedMotion):
                 if motionFileJson["events"][i]["time"] < aggregatedMotion[j]["time"]:
                     mergedList.append(motionFileJson["events"][i])
                     i = i + 1
@@ -190,12 +197,14 @@ parser.add_argument(
 parser.add_argument('--channel', default=CHANNEL_DEFAULT, help=CHANNEL_HELP)
 parser.add_argument('--out-file', default=OUT_FILE_DEFAULT, help=OUTFILE_HELP)
 parser.add_argument('-v', '--verbose', action="store_true")
+parser.add_argument('--sound-file', default='', help=SOUNDFILE_HELP)
 
 args = parser.parse_args()
 
 mode = args.mode
 channel = args.channel
 out_file = args.out_file
+sound_file = args.sound_file
 
 if out_file == OUT_FILE_DEFAULT:
     if mode == MODE_CAP_STR:
@@ -209,7 +218,7 @@ if out_file == OUT_FILE_DEFAULT:
 
 
 if mode == MODE_CAP_STR:
-    captureMotion(args.verbose, channel, out_file)
+    captureMotion(args.verbose, channel, out_file, sound_file)
 
 elif mode == MODE_MERGE_STR:
     mergeFiles(args.verbose, out_file)
