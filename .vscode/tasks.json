@@ -4,7 +4,8 @@
         {
             "label": "copyOnPi",
             "type": "shell",
-            "command": "scp ${file} ${config:sshUser}@${config:sshEndpoint}:~/${config:remoteDir}/${fileBasename}"
+            "command": "scp -r billy.py ${config:sshUser}@${config:sshEndpoint}:~/${config:remoteDir}",
+            "problemMatcher": []
         },
         {
             "label": "startOnPi",
@@ -29,6 +30,6 @@
             "label": "cleanupOnPi",
             "type": "shell",
             "command": "ssh ${config:sshUser}@${config:sshEndpoint} 'pkill -9 python'"
-        },
+        }
     ]
 }

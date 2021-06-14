@@ -30,7 +30,7 @@ CHANNEL_HELP = ("name of the channel you'd like to record")
 OUTFILE_HELP = ("name of file to output to. The " +
                 EXTENSION + " will not be added automatically.")
 
-SOUNDFILE_HELP = ("name of the sound file to play while you record motion.")
+SOUNDFILE_HELP = ("name of the sound file to play while you record motion. Should be signed 32-bit PCM WAV sound for best results.")
 
 beatEvents = queue.Queue()
 

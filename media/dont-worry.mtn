@@ -276,6 +276,11 @@
             "event-name": "motor-on"
         }, 
         {
+            "time": 11.961890697479248, 
+            "channel-name": "head", 
+            "event-name": "motor-on"
+        }, 
+        {
             "time": 12.00760269165039, 
             "channel-name": "body", 
             "event-name": "motor-on"
@@ -408,6 +413,11 @@
         {
             "time": 16.812575340270996, 
             "channel-name": "body", 
+            "event-name": "motor-off"
+        }, 
+        {
+            "time": 17.216726064682007, 
+            "channel-name": "head", 
             "event-name": "motor-off"
         }, 
         {
@@ -716,6 +726,11 @@
             "event-name": "motor-on"
         }, 
         {
+            "time": 27.9449143409729, 
+            "channel-name": "head", 
+            "event-name": "motor-on"
+        }, 
+        {
             "time": 28.15751075744629, 
             "channel-name": "body", 
             "event-name": "motor-off"
@@ -784,6 +799,11 @@
             "time": 31.223236083984375, 
             "channel-name": "body", 
             "event-name": "motor-on"
+        }, 
+        {
+            "time": 31.542564153671265, 
+            "channel-name": "head", 
+            "event-name": "motor-off"
         }, 
         {
             "time": 31.60295295715332, 
@@ -1048,6 +1068,16 @@
         {
             "time": 45.40581011772156, 
             "channel-name": "mouth", 
+            "event-name": "motor-off"
+        }, 
+        {
+            "time": 45.85608243942261, 
+            "channel-name": "head", 
+            "event-name": "motor-on"
+        }, 
+        {
+            "time": 47.62821841239929, 
+            "channel-name": "head", 
             "event-name": "motor-off"
         }
     ]

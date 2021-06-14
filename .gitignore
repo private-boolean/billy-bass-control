@@ -1,1 +1,4 @@
 .vscode/
+
+# ignore audio files because I don't have permission to redistribute them
+*.wav

@@ -1,0 +1,34 @@
+{
+    "events": [
+        {
+            "time": 9.44572925567627, 
+            "channel-name": "head", 
+            "event-name": "motor-on"
+        }, 
+        {
+            "time": 18.5588481426239, 
+            "channel-name": "head", 
+            "event-name": "motor-off"
+        }, 
+        {
+            "time": 24.314638376235962, 
+            "channel-name": "head", 
+            "event-name": "motor-on"
+        }, 
+        {
+            "time": 26.346858501434326, 
+            "channel-name": "head", 
+            "event-name": "motor-off"
+        }, 
+        {
+            "time": 28.897053003311157, 
+            "channel-name": "head", 
+            "event-name": "motor-on"
+        }, 
+        {
+            "time": 31.96173071861267, 
+            "channel-name": "head", 
+            "event-name": "motor-off"
+        }
+    ]
+}
