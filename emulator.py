@@ -1,6 +1,7 @@
 from playsound import playsound
 import glob
 from tkgpio import TkCircuit
+import configparser
 
 # initialize the circuit inside the
 
@@ -23,6 +24,37 @@ circuit = TkCircuit(configuration)
 
 isPlaying = False
 fileIndex = 0
+
+
+# Configuration files
+
+CONFIG_FILENAME = '.billy.conf'
+
+CONFIG_DEFAULT_MEDIA_DIR = 'media'
+CONFIG_DEFAULT_DELAY = -0.75
+CONFIG_DEFAULT_PLAY_ON_START = False
+
+
+def refreshConfig(config):
+    try:
+        config.read_file(open(CONFIG_FILENAME, 'r'))
+
+    except FileNotFoundError:
+        # if config file can't be opened, create one with defaults
+        config['DEFAULT'] = {'DefaultDelay': CONFIG_DEFAULT_DELAY,
+                             'MediaDir':     CONFIG_DEFAULT_MEDIA_DIR,
+                             'PlayOnStart':  CONFIG_DEFAULT_PLAY_ON_START
+                             }
+
+        config['all-star'] = {'delay': -0.5}
+        with open(CONFIG_FILENAME, 'w') as billyConfigFile:
+            config.write(billyConfigFile)
+
+    return config
+
+
+config = configparser.ConfigParser()
+config = refreshConfig(config)
 
 
 @circuit.run
@@ -84,43 +116,74 @@ def main():
     def button_pressed():
         global isPlaying
         global fileIndex
+        global config
+
         print("button pressed!")
         if not isPlaying:
             isPlaying = True
-            soundFiles = glob.glob("media/*.wav")
-            mtnFiles = glob.glob("media/*.mtn")
+
+            config = refreshConfig(config)
+
+            try:
+                mediaFolder = config['DEFAULT']['MediaDir']
+            except KeyError:
+                mediaFolder = 'media'
+
+            soundFileSearch = "." + os.sep + mediaFolder + os.sep + "*.wav"
+            mtnFileSearch = "." + os.sep + mediaFolder + os.sep + "*.mtn"
+            soundFiles = glob.glob(soundFileSearch)
+            mtnFiles = glob.glob(mtnFileSearch)
 
             if fileIndex >= min(len(soundFiles), len(mtnFiles)):
                 fileIndex = 0
 
-            soundFile = soundFiles[fileIndex]
-            fileBase = soundFile.split(".wav")[0]
-            mtnFile = fileBase + ".mtn"
-
-            fileIndexOriginal = fileIndex
-
-            while not os.path.exists(mtnFile):
-                fileIndex = fileIndex + 1
-                if fileIndex >= min(len(soundFiles), len(mtnFiles)):
-                    fileIndex = 0
-
-                if fileIndex == fileIndexOriginal:
-                    isPlaying = False
-                    raise FileNotFoundError(
-                        errno.ENOENT, os.strerror(errno.ENOENT), "no WAV and MTN have matching names")
-
+            if (len(soundFiles) != 0) and (len(mtnFiles) != 0):
                 soundFile = soundFiles[fileIndex]
                 fileBase = soundFile.split(".wav")[0]
                 mtnFile = fileBase + ".mtn"
 
-            parseFile(mtnFile, soundFile)
+                fileIndexOriginal = fileIndex
+
+                while not os.path.exists(mtnFile):
+                    fileIndex = fileIndex + 1
+                    if fileIndex >= min(len(soundFiles), len(mtnFiles)):
+                        fileIndex = 0
+
+                    if fileIndex == fileIndexOriginal:
+                        isPlaying = False
+                        raise FileNotFoundError(
+                            errno.ENOENT, os.strerror(errno.ENOENT), "no WAV and MTN have matching names")
+
+                    soundFile = soundFiles[fileIndex]
+                    fileBase = soundFile.split(".wav")[0]
+                    mtnFile = fileBase + ".mtn"
+
+                print("parseFile(%s, %s)" % (mtnFile, soundFile))
+                try:
+                    songname = fileBase.split(os.pathsep)[-1]
+                    lookupDelay = config[songname].getfloat('delay')
+
+                except KeyError:
+                    lookupDelay = CONFIG_DEFAULT_DELAY
+
+                parseFile(mtnFile, soundFile, lookupDelay)
+                fileIndex = fileIndex + 1
+                # end of if (len(soundFiles) != 0) and (len(mtnFiles) != 0):
             isPlaying = False
-            fileIndex = fileIndex + 1
         else:
             print("already playing!!")
 
     button = Button(18)
     button.when_pressed = button_pressed
+
+    # do it once when program starts
+    try:
+        shouldPlay = config['DEFAULT'].getboolean('PlayOnStart')
+    except KeyError:
+        shouldPlay = CONFIG_DEFAULT_PLAY_ON_START
+
+    if shouldPlay:
+        button_pressed()
 
     while True:
         sleep(0.1)
