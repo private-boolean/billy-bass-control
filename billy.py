@@ -7,6 +7,9 @@ import os
 import errno
 import subprocess
 import configparser
+from playwav import play
+import wave
+import threading
 
 isPlaying = False
 fileIndex = 0
@@ -23,6 +26,13 @@ CONFIG_FILENAME = '.billy.conf'
 CONFIG_DEFAULT_MEDIA_DIR = 'media'
 CONFIG_DEFAULT_DELAY = -0.75
 CONFIG_DEFAULT_PLAY_ON_START = False
+
+
+def playwav(soundFile):
+    alsaDevice = 'default'
+
+    with wave.open(soundFile, 'rb') as f:
+        play(alsaDevice, f)
 
 
 def refreshConfig(config):
@@ -47,9 +57,12 @@ def parseFile(sourceFile, soundFile, offset=0.0):
     mvmtFile = open(sourceFile)
     mvmtDirections = json.load(mvmtFile)
 
+    print('playing file %s with offset %f.' % (soundFile, offset))
+
     speakerControl.on()
 
-    audioProcess = subprocess.Popen(['aplay', soundFile])
+    t = threading.Thread(target=playwav, args=[soundFile])
+    t.start()
 
     idx = 0
     startTime = time.monotonic() + offset
@@ -81,7 +94,7 @@ def parseFile(sourceFile, soundFile, offset=0.0):
         elapsedTime = time.monotonic() - startTime
         sleep(0.01)
 
-    audioProcess.wait()
+    t.join()
     speakerControl.off()
 
 
@@ -132,7 +145,7 @@ def button_pressed():
 
             print("parseFile(%s, %s)" % (mtnFile, soundFile))
             try:
-                songname = fileBase.split(os.pathsep)[-1]
+                songname = fileBase.split(os.sep)[-1]
                 lookupDelay = config[songname].getfloat('delay')
 
             except KeyError:

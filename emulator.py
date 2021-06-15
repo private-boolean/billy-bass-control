@@ -78,6 +78,8 @@ def main():
         mvmtFile = open(sourceFile)
         mvmtDirections = json.load(mvmtFile)
 
+        print('playing file %s with offset %f.' % (soundFile, offset))
+
         speakerControl.on()
         playsound(soundFile, block=False)
 
@@ -112,6 +114,7 @@ def main():
             sleep(0.01)
 
         speakerControl.off()
+
 
     def button_pressed():
         global isPlaying
@@ -160,7 +163,7 @@ def main():
 
                 print("parseFile(%s, %s)" % (mtnFile, soundFile))
                 try:
-                    songname = fileBase.split(os.pathsep)[-1]
+                    songname = fileBase.split(os.sep)[-1]
                     lookupDelay = config[songname].getfloat('delay')
 
                 except KeyError:
