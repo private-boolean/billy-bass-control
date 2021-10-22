@@ -1,0 +1,24 @@
+{
+    "events": [
+        {
+            "time": 13.227336883544922, 
+            "channel-name": "head", 
+            "event-name": "motor-on"
+        }, 
+        {
+            "time": 18.696306228637695, 
+            "channel-name": "head", 
+            "event-name": "motor-off"
+        }, 
+        {
+            "time": 37.80813670158386, 
+            "channel-name": "head", 
+            "event-name": "motor-on"
+        }, 
+        {
+            "time": 39.4752037525177, 
+            "channel-name": "head", 
+            "event-name": "motor-off"
+        }
+    ]
+}

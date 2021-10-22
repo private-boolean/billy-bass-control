@@ -8,6 +8,12 @@
             "problemMatcher": []
         },
         {
+            "label": "copyMedia",
+            "type": "shell",
+            "command": "scp -r media ${config:sshUser}@${config:sshEndpoint}:~/${config:remoteDir}",
+            "problemMatcher": []
+        },
+        {
             "label": "startOnPi",
             "type": "shell",
             "command": "ssh ${config:sshUser}@${config:sshEndpoint} 'nohup python3 -m ptvsd --host 0.0.0.0 --port 5678 --wait ~/${config:remoteDir}/${fileBasename} > /dev/null 2>&1 &'"
