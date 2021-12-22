@@ -1,22 +1,52 @@
 {
     "events": [
         {
-            "time": 2.895596981048584, 
+            "time": 2.9646263122558594, 
             "channel-name": "head", 
             "event-name": "motor-on"
         }, 
         {
-            "time": 5.658999443054199, 
+            "time": 6.014685153961182, 
             "channel-name": "head", 
             "event-name": "motor-off"
         }, 
         {
-            "time": 14.213124752044678, 
+            "time": 15.974747657775879, 
             "channel-name": "head", 
             "event-name": "motor-on"
         }, 
         {
-            "time": 18.62033700942993, 
+            "time": 22.07813549041748, 
+            "channel-name": "head", 
+            "event-name": "motor-off"
+        }, 
+        {
+            "time": 28.45514488220215, 
+            "channel-name": "head", 
+            "event-name": "motor-on"
+        }, 
+        {
+            "time": 33.89470028877258, 
+            "channel-name": "head", 
+            "event-name": "motor-off"
+        }, 
+        {
+            "time": 42.14456510543823, 
+            "channel-name": "head", 
+            "event-name": "motor-on"
+        }, 
+        {
+            "time": 44.46457815170288, 
+            "channel-name": "head", 
+            "event-name": "motor-off"
+        }, 
+        {
+            "time": 53.2544379234314, 
+            "channel-name": "head", 
+            "event-name": "motor-on"
+        }, 
+        {
+            "time": 57.92457723617554, 
             "channel-name": "head", 
             "event-name": "motor-off"
         }
