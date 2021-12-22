@@ -1,0 +1,1 @@
+scp -r .\beef-log\beef-log.mtn .\beef-log\beef-log.wav developer@billy:~/python-prj/billy-bass/media
